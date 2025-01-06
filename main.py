@@ -14,21 +14,12 @@ CORS(app)
 
 app.config.update({
     'SESSION_TYPE': 'filesystem',
-    'SESSION_FILE_DIR': 'flask_session',
-    'SESSION_FILE_THRESHOLD': 500,
     'SECRET_KEY': 'Mr_anas123',
     'SESSION_PERMANENT': False,
     'PERMANENT_SESSION_LIFETIME': 1800,  # 30 minutes
-    'SESSION_USE_SIGNER': True  # Add this line
-})
+}
 
 Session(app)
-
-# Clear session directory on startup
-session_dir = 'flask_session'
-if os.path.exists(session_dir):
-    shutil.rmtree(session_dir)
-os.makedirs(session_dir, exist_ok=True)
 
 Session(app)
 
