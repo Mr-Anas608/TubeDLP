@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+
+{% block style %}
+<link rel="stylesheet" href="/static/style/index.css">
+{% endblock style %}
+
+{% block body %}
+
+<main>
+    <section class="hero">
+        <h1>Free YouTube Video Downloader</h1>
+        <p>Quickly grab your favorite YouTube videos in high quality—for free. No ads, no distractions, no
+            complications—just fast and reliable downloads.</p>
+
+        <div class="input-section">
+            <div class="inputbox">
+                <input type="text" required="required">
+                <span>Paste video URL here</span>
+                <i></i>
+            </div>
+            <button class="button">
+                <div class="text">Next</div>
+                <svg class="arrow" viewBox="0 0 24 24" width="24" height="24">
+                    <path
+                        d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z">
+                    </path>
+                </svg>
+            </button>
+        </div>
+    </section>
+
+   <section class="how-to-use" id="how_to">
+    <h2>How to Use?</h2>
+    <div class="steps">
+        <div class="step">
+            <div class="step-number">1</div>
+            <img src="/static/images/1.png" alt="Copy URL from video platform">
+            <h3>Find & Copy URL</h3>
+            <p>Navigate to your favorite YouTube video and copy the video URL from your browser's address bar or use the 'Share' button below the video.</p>
+        </div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <img src="/static/images/2.png" alt="Paste URL in search bar">
+            <h3>Paste & Process</h3>
+            <p>Simply paste the URL in the box above or enable clipboard access for automatic detection. Click 'Next' and let TubeDLP analyze available formats.</p>
+        </div>
+        <div class="step">
+            <div class="step-number">3</div>
+            <img src="/static/images/3.png" alt="Click download button">
+            <h3>Select & Download</h3>
+            <p>Choose your preferred video quality and format from available options. Click 'Download' and your video will be ready to enjoy offline in seconds.</p>
+        </div>
+    </div>
+</section>
+    <section class="faq-section" id="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Is it legal to download YouTube videos?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>While YouTube's terms of service discourage downloading videos, TubeDLP is designed for personal,
+                        non-commercial use only. By using this service, you acknowledge that you're downloading content
+                        for personal viewing purposes and not for commercial distribution. I recommend supporting
+                        content creators by watching their videos on YouTube when possible. You are responsible for
+                        ensuring compliance with local copyright laws and regulations.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>What video formats and quality options are available?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>TubeDLP offers a wide range of formats and quality options to suit your needs. For video, you can
+                        download in MP4 and WebM formats, with quality ranging from 144p to the highest resolution
+                        available in the original video (including 4K, 8K if available). For audio, both M4A and MP3
+                        formats are supported, ensuring the best possible audio quality. The available options will
+                        always match what's offered in the original video.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Which platforms are currently supported?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Currently, I'm focusing on providing the best possible YouTube video downloading experience. I'm
+                        actively working on adding support for other popular social media platforms in the near future.
+                        My goal is to expand TubeDLP's capabilities while maintaining the same high-quality, ad-free
+                        experience you currently enjoy.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Where are the downloaded videos saved?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Downloaded videos are automatically saved to your device's default downloads folder. Most
+                        browsers allow you to customize the download location before starting the download. On mobile
+                        devices, files typically go to your device's "Downloads" or "Media" folder, depending on your
+                        operating system and settings.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Are there any download limits?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>While I don't enforce strict download limits, I kindly request users to be considerate with their
+                        usage. TubeDLP runs on free hosting platforms to keep this service completely free and ad-free
+                        for everyone. To ensure stable service for all users, please download only what you need.
+                        Excessive usage might affect service availability or lead to temporary slowdowns.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Why choose TubeDLP for downloading videos?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>TubeDLP stands out as a completely free, no-ads YouTube video downloader that prioritizes user
+                        experience. I've designed it to be simple, fast, and reliable, with no hidden fees or annoying
+                        pop-ups. You get high-quality downloads with multiple format options, a clean interface, and
+                        regular updates to maintain compatibility. Unlike other services, TubeDLP doesn't require any
+                        software installation and works directly in your browser.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>How fast are the downloads?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>Download speeds primarily depend on your internet connection and the video size. Most videos
+                        process within seconds, and downloading typically takes just a few minutes. For optimal
+                        performance, I recommend downloading during off-peak hours and ensuring a stable internet
+                        connection. Remember that higher quality videos (like 4K) will naturally take longer to download
+                        than lower resolutions.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>How can I report issues or suggest improvements?</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" width="24" height="24">
+                        <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z" />
+                    </svg>
+                </button>
+                <div class="faq-answer">
+                    <p>I value your feedback and am constantly working to improve TubeDLP! If you're experiencing any
+                        issues, have suggestions for new features, or want to share your thoughts, I'd love to hear from
+                        you. You can easily reach me through the "Contact Me" button on the top navigation bar or by
+                        clicking the WhatsApp icon in the footer. Whether it's a persistent error, a feature request, or
+                        just general feedback, your input helps make TubeDLP better for everyone. I personally review
+                        all feedback and try to respond as quickly as possible.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+</main>
+
+<!-- Loader Section -->
+<div id="loader" style="display: none;">
+    <div class="loader loadingtext">
+        <p id="loaderText">Loading</p>
+    </div>
+</div>
+
+<!-- Error Message Section -->
+<p id="errorMessage" style="color: red; font-size: 1em; display: none;"></p>
+</section>
+
+<script src="/static/script/index.js"></script>
+{% endblock %}

@@ -1,0 +1,96 @@
+<!-- privacy.html -->
+{% extends "base.html" %}
+
+{% block title %}Privacy Policy - TubeDLP{% endblock %}
+
+{% block style %}
+<style>
+    .legal-content {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
+        color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .legal-content h1 {
+        color: #07E44D;
+        font-size: clamp(2em, 4vw, 2.5em);
+        margin-bottom: 2rem;
+    }
+    
+    .legal-content h2 {
+        color: #07E44D;
+        font-size: clamp(1.5em, 3vw, 1.8em);
+        margin: 2.5rem 0 1rem;
+    }
+    
+    .legal-content p {
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+    
+    .legal-content ul {
+        margin: 1rem 0 1.5rem 2rem;
+    }
+    
+    .legal-content li {
+        margin-bottom: 0.75rem;
+        line-height: 1.6;
+    }
+    
+    .last-updated {
+        color: rgba(255, 255, 255, 0.6);
+        font-style: italic;
+        margin-top: 3rem;
+    }
+    
+    @media (max-width: 768px) {
+        .legal-content {
+            padding: 3rem 1rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="legal-content">
+    <h1>Privacy Policy</h1>
+    
+    <p>Welcome to TubeDLP. I am committed to protecting your privacy and providing a safe, transparent service.</p>
+    
+    <h2>Information Collection</h2>
+    <p>TubeDLP operates as a simple video downloading service and collects minimal personal information:</p>
+    <ul>
+        <li>Video URLs that you input for downloading</li>
+        <li>Basic usage data (like browser type and access time) for service improvement</li>
+        <li>No account creation is required or available</li>
+    </ul>
+    
+    <h2>How Information is Used</h2>
+    <p>The information collected is used solely for:</p>
+    <ul>
+        <li>Processing your video download requests</li>
+        <li>Improving service performance and reliability</li>
+        <li>Maintaining service security</li>
+    </ul>
+    
+    <h2>Data Storage</h2>
+    <p>TubeDLP does not store any downloaded videos or personal information. All downloads are processed in real-time and delivered directly to your device.</p>
+    
+    <h2>Third-Party Services</h2>
+    <p>The service interacts with YouTube to process download requests. Users should be aware of and comply with YouTube's terms of service when using TubeDLP.</p>
+    
+    <h2>Your Rights</h2>
+    <p>You have the right to:</p>
+    <ul>
+        <li>Know what data is being collected</li>
+        <li>Request deletion of any stored data</li>
+        <li>Opt-out of future communications</li>
+    </ul>
+    
+    <h2>Contact Information</h2>
+    <p>For any privacy-related questions or concerns, please contact me through the "Contact Me" button in the navigation bar or via the WhatsApp link in the footer.</p>
+    
+    <p class="last-updated">Last Updated: January 6, 2024</p>
+</div>
+{% endblock %}

@@ -1,0 +1,109 @@
+<!-- terms.html -->
+{% extends "base.html" %}
+
+{% block title %}Terms of Service - TubeDLP{% endblock %}
+
+{% block style %}
+<style>
+    .legal-content {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
+        color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .legal-content h1 {
+        color: #07E44D;
+        font-size: clamp(2em, 4vw, 2.5em);
+        margin-bottom: 2rem;
+    }
+    
+    .legal-content h2 {
+        color: #07E44D;
+        font-size: clamp(1.5em, 3vw, 1.8em);
+        margin: 2.5rem 0 1rem;
+    }
+    
+    .legal-content p {
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+    
+    .legal-content ul {
+        margin: 1rem 0 1.5rem 2rem;
+    }
+    
+    .legal-content li {
+        margin-bottom: 0.75rem;
+        line-height: 1.6;
+    }
+    
+    .last-updated {
+        color: rgba(255, 255, 255, 0.6);
+        font-style: italic;
+        margin-top: 3rem;
+    }
+    
+    @media (max-width: 768px) {
+        .legal-content {
+            padding: 3rem 1rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="legal-content">
+    <h1>Terms of Service</h1>
+    
+    <p>By using TubeDLP, you agree to these terms of service. Please read them carefully.</p>
+    
+    <h2>Service Usage</h2>
+    <p>TubeDLP provides a free service for downloading videos for personal use. By using this service, you agree to:</p>
+    <ul>
+        <li>Use the service only for personal, non-commercial purposes</li>
+        <li>Not abuse, hack, or attempt to modify the service</li>
+        <li>Not use automated systems to access the service</li>
+        <li>Respect fair usage limits to ensure service availability for all users</li>
+    </ul>
+    
+    <h2>Copyright and Content Usage</h2>
+    <p>When using TubeDLP, you acknowledge that:</p>
+    <ul>
+        <li>You are responsible for ensuring you have the right to download content</li>
+        <li>Downloaded content should only be used for personal viewing</li>
+        <li>You will not redistribute or sell downloaded content</li>
+        <li>You understand that some content may be protected by copyright laws</li>
+    </ul>
+    
+    <h2>Service Limitations</h2>
+    <ul>
+        <li>The service is provided "as is" without warranties of any kind</li>
+        <li>Service availability and download speeds may vary</li>
+        <li>I reserve the right to modify or discontinue the service at any time</li>
+        <li>Some features may be temporarily unavailable for maintenance or updates</li>
+    </ul>
+    
+    <h2>User Responsibilities</h2>
+    <p>Users are responsible for:</p>
+    <ul>
+        <li>Ensuring downloads comply with local laws and regulations</li>
+        <li>Using downloaded content in accordance with content creators' rights</li>
+        <li>Maintaining the security of their own devices and downloads</li>
+        <li>Reporting any service issues or violations of these terms</li>
+    </ul>
+    
+    <h2>Service Modifications</h2>
+    <p>I reserve the right to:</p>
+    <ul>
+        <li>Modify these terms at any time</li>
+        <li>Change or discontinue features of the service</li>
+        <li>Limit service access in cases of abuse or excessive use</li>
+    </ul>
+    
+    <h2>Contact Information</h2>
+    <p>For questions about these terms or to report violations, please contact me through the "Contact Me" button in the navigation bar or via the WhatsApp link in the footer.</p>
+    
+    <p class="last-updated">Last Updated: January 6, 2024</p>
+</div>
+{% endblock %}

@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% block style %}
+<link rel="stylesheet" href="/static/style/download-opt.css">
+{% endblock style %}
+
+{% block body %}
+
+{% if options["available_v_resolutions"] or options["available_a_extensions"] %}
+
+<div class="content">
+    <!-- Loader (hidden by default) -->
+    <div class="overlay" id="overlay" style="display: none;">
+        <div class="loader-container">
+            <p id="loader-text">Preparing your download...</p>
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+            <p id="progress-percentage">0%</p> <!-- Add this for the percentage -->
+        </div>
+    </div>
+
+
+    <div class="content">
+        <div class="thumbnail">
+
+            {% if options['thumbnail'] %}
+            <img src="{{options['thumbnail']}}" alt="thumbnail">
+            <div class="th-button">
+                <button class="Btn">
+                    <svg class="svgIcon" viewBox="0 0 384 512" height="1em" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z">
+                        </path>
+                    </svg>
+                    <span class="icon2"></span>
+                    <span class="tooltip">Download<br>Thumbnail</span>
+                </button>
+            </div>
+            {% else %}
+            <p class="p-else">No Thumbnail Found</p>
+            {% endif %}
+
+
+            {% if options['title'] %}
+            <p>{{options['title']}}</p>
+            {% else %}
+            <p class="p-else">No Title Found</p>
+            {% endif %}
+        </div>
+
+
+        <section action="/download-rec-video" method="POST" class="form rec">
+
+            <h1>Recommended</h1>
+            {% if options['recommended_videos'] %}
+            <h2>Video Quality</h2>
+            <br>
+            <div class="radio-input" id="quality-options">
+                {% for video in options['recommended_videos'] %}
+                <label class="label">
+                    <input type="radio" id="quality-{{video['resolution']}}" name="rec_resolution"
+                        value="{{video['resolution']}}" 
+                {% if video['resolution'].startswith("1080p") or 
+                 video['resolution'].startswith("720p") or 
+                 video['resolution'].startswith("480p") or 
+                 video['resolution'].startswith("360p") %} 
+               checked 
+           {% endif %} />
+                    <p class="text">{{ video["resolution"] }}</p>
+                </label>
+                {% endfor %}
+            </div>
+
+            <h2>Video Extension</h2>
+            <br>
+            <div class="radio-input" id="extension-options">
+                {% for video in options['recommended_videos'] %}
+                <label class="label">
+                    <input type="radio" id="extension-{{ video['ext'] }}" name="rec_extension" value="{{video['ext']}}"
+                        {%if video['ext']=='mp4' %}checked{% endif %} />
+                    <p class="text">{{ video['ext'] }}</p>
+                </label>
+                {% endfor %}
+            </div>
+
+
+            <!-- Video Download Button -->
+            <div class="d-button-container">
+                <button type="button" id="rec-download-button" class="d-button2" style="vertical-align:middle"
+                    data-tooltip="" data-route="/download-rec-video">
+                    <span>Download</span>
+                </button>
+            </div>
+            {% else %}
+            <p class="p-else">No Recommendations are available</p>
+            {% endif %}
+        </section>
+
+        <section action="/download-other-video" method="POST" class="form other">
+            <hr>
+
+            <h1>More Options</h1>
+
+            {% if options['available_v_resolutions'] and options['available_v_extensions'] %}
+
+            <h2>Video Quality</h2>
+            <br>
+            <div class="radio-input">
+                {% for resolution in options['available_v_resolutions']%}
+                <label class="label">
+                    <input type="radio" id="quality-{{resolution}}" value="{{resolution}}" name="other_resolution" />
+                    <p class="text">{{resolution}}</p>
+                </label>
+
+                {% endfor %}
+            </div>
+
+            <h2>Video Extension</h2>
+            <br>
+            <div class="radio-input">
+                {% for ext in options['available_v_extensions']%}
+
+                <label class="label">
+                    <input type="radio" id="extension-{{ext}}" name="other_extension" value="{{ext}}" />
+                    <p class="text">{{ext}}</p>
+                </label>
+
+                {% endfor %}
+            </div>
+
+            <!-- Video Download Button -->
+            <div class="d-button-container">
+                <button type="button" id="other-download-button" class="d-button2" style="vertical-align:middle"
+                    data-tooltip="" data-route="/download-other-video">
+                    <span>Download</span>
+                </button>
+            </div>
+
+            {% else %}
+            <p class="p-else">No more options are available</p>
+            {% endif %}
+
+
+            <h1>Download Only Audio</h1>
+            {% if options['available_a_extensions']%}
+
+            <h2>Audio Extension</h2>
+            <br>
+            <div class="radio-input">
+                {% for ext in options['available_a_extensions'] %}
+
+                <label class="label">
+                    <input type="radio" id="a-extension-{{ext}}" value="{{ext}}" name="audio_extension" />
+                    <p class="text">{{ext}}</p>
+                </label>
+
+                {% endfor %}
+            </div>
+
+            <!-- Audio Download Button -->
+            <div class="d-button-container">
+                <button class="d-button2" id="audio-download-button" style="vertical-align:middle" data-tooltip=""
+                    data-route="/download-audio">
+                    <span>Download</span>
+                </button>
+            </div>
+
+            {% else %}
+            <p class="p-else">No Audio available for downloads </p>
+            {% endif %}
+
+        </section>
+
+    </div>
+
+    {% else %}
+    <p class="p-else">URL not supported!, Please try again or use different URL.</p>
+    {% endif %}
+
+    <script src="https://cdn.jsdelivr.net/npm/@ffmpeg/ffmpeg@0.11.5/dist/ffmpeg.min.js"></script>
+
+    <script src="/static/script/script.js"></script>
+
+
+    {% endblock body %}
