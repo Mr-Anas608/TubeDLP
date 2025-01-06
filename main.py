@@ -17,7 +17,7 @@ app.config.update({
     'SECRET_KEY': 'Mr_anas123',
     'SESSION_PERMANENT': False,
     'PERMANENT_SESSION_LIFETIME': 1800,  # 30 minutes
-}
+})
 
 Session(app)
 
