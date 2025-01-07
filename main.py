@@ -19,8 +19,6 @@ app.config.update({
 
 Session(app)
 
-Session(app)
-
 # Configure CORS
 CORS(app, resources={
     r"/*": {
