@@ -1,4 +1,5 @@
-import yt_dlp
+import yt_dlp, os, requests
+from urllib.parse import urlparse
 # Use get_best_video_options function to filter the best video formats
 def get_best_video_options(formats):
     best_options = {}
@@ -170,7 +171,6 @@ def filter_info(info):
 
 # A function to extract download information using the extract_info() function in the YoutubeDL class from the yt_dlp library.
 def get_download_options(url):
-    import os
 
     # Get cookies from environment variable if we're on Koyeb
     cookies_content = os.getenv('YOUTUBE_COOKIES')
@@ -213,8 +213,7 @@ def get_download_options(url):
     except Exception as e:
         return {"error": f"An unexpected error occurred: {str(e)}"}
 
-import requests
-from urllib.parse import urlparse
+
 
 def is_valid_url(url):
     try:
