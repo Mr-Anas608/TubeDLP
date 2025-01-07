@@ -172,9 +172,15 @@ def filter_info(info):
 # A function to extract download information using the extract_info() function in the YoutubeDL class from the yt_dlp library.
 def get_download_options(url):
     options = {
-        'no_warnings': True,
+        # 'no_warnings': True,
+        'no_warnings': False,
         'socket_timeout': 120,
         'cookies': 'cookies.txt',
+        'verbose': True,
+        'verbose': True,  # Add verbose output
+        'ignore_no_formats_error': True,  # Add this
+        'extract_flat': False,  # Changed to False
+        'no_check_certificates': True,
         'http_headers': {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
@@ -193,6 +199,7 @@ def get_download_options(url):
 
     try:
         with yt_dlp.YoutubeDL(options) as ydl:
+            ydl.print_debug_header()
             info = ydl.extract_info(url, download=False)
             info_after_filter = filter_info(info)
             return info_after_filter

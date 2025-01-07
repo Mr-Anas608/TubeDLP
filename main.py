@@ -83,6 +83,15 @@ def download_opt():
     url = request.args.get("url")
     if not url or not is_valid_url(url):
         return redirect(url_for("index"))
+    
+    current_dir = os.getcwd()
+    print(f"Current working directory: {current_dir}")
+    print(f"Files in directory: {os.listdir(current_dir)}")
+
+    cookie_path = os.path.join(current_dir, 'cookies.txt')
+    print(f"Looking for cookies at: {cookie_path}")
+    print(f"Cookies file exists: {os.path.exists(cookie_path)}")
+
 
     # Use options from session instead of fetching again
     options = session.get('options')
