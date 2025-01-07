@@ -196,11 +196,21 @@ def get_download_options(url):
         }
     }
 
-
+    options.update({
+    'nocheckcertificate': True,
+    'legacy_server_connect': True,
+    'extractor_retries': 3,
+    'http_chunk_size': 10485760,  # 10M
+    'retry_sleep_functions': {'http': lambda n: 5},
+    })
+    
     try:
         with yt_dlp.YoutubeDL(options) as ydl:
             ydl.print_debug_header()
+            print("Starting extraction...")
             info = ydl.extract_info(url, download=False)
+            print("Extraction successful")
+
             info_after_filter = filter_info(info)
             return info_after_filter
     except yt_dlp.utils.DownloadError as e:
