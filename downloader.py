@@ -1,5 +1,4 @@
-import yt_dlp, os, tempfile
-
+import yt_dlp
 # Use get_best_video_options function to filter the best video formats
 def get_best_video_options(formats):
     best_options = {}
@@ -171,11 +170,25 @@ def filter_info(info):
 
 # A function to extract download information using the extract_info() function in the YoutubeDL class from the yt_dlp library.
 def get_download_options(url):
+    import os
+
+    # Get cookies from environment variable if we're on Koyeb
+    cookies_content = os.getenv('YOUTUBE_COOKIES')
+    if cookies_content:
+        print("Cookies found in variable, ")
+        # Write cookies to a temporary file
+        with open('/tmp/cookies.txt', 'w') as f:
+            f.write(cookies_content)
+        cookies_path = '/tmp/cookies.txt'
+    else:
+        # Use local cookies file if not on Koyeb
+        print("Cookies not found in variable, ")
+        cookies_path = 'cookies.txt'
+
     options = {
-        # 'no_warnings': True,
         'no_warnings': False,
         'socket_timeout': 120,
-        'cookies': 'cookies.txt',
+        'cookiefile': cookies_path,  # Changed from 'cookies' to 'cookiefile'
         'http_headers': {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
@@ -189,19 +202,6 @@ def get_download_options(url):
             'Sec-Fetch-User': '?1'
         }
     }
-
-    # options = {
-    # 'no_warnings': True,
-    # 'socket_timeout': 120,
-    # 'cookies': 'cookies.txt',
-    # 'http_headers': {
-    #     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.115 Safari/537.36',
-    #     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-    #     'Accept-Language': 'en-us,en;q=0.5',
-    #     'Sec-Fetch-Mode': 'navigate'
-    # }
-    # }
-
 
     try:
         with yt_dlp.YoutubeDL(options) as ydl:
