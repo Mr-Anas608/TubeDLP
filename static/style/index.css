@@ -271,7 +271,7 @@
 }
 
 .step p {
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.851);
   font-size: 1em;
   line-height: 1.5;
 }
