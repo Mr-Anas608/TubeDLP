@@ -1,3 +1,6 @@
+# Netscape HTTP Cookie File
+# http://curl.haxx.se/rfc/cookie_spec.html
+# This is a generated file!  Do not edit.
 
 .youtube.com	TRUE	/	TRUE	1736267980	GPS	1
 .youtube.com	TRUE	/	TRUE	1770826762	PREF	f4=4000000&tz=Asia.Karachi
