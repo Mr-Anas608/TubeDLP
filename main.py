@@ -1,11 +1,9 @@
-from flask import Flask, jsonify, request, render_template, url_for, send_file, redirect, Response, abort, stream_with_context, session
+from flask import Flask, jsonify, request, render_template, url_for, send_file, redirect, Response, session
 from flask_session import Session
 import requests
 import io
 import json
-import shutil
 import os, urllib.parse
-from datetime import datetime
 from downloader import is_valid_url, get_download_options
 from flask_cors import CORS
 
