@@ -47,38 +47,6 @@ def index():
     return render_template('index.html')
 
 
-import requests
-from urllib.parse import urlparse
-
-def test_youtube_access(video_id):
-    urls_to_test = [
-        f'https://www.youtube.com/watch?v={video_id}',
-        f'https://www.youtube.com/get_video_info?video_id={video_id}',
-        'https://www.youtube.com'  # Test basic connectivity
-    ]
-    
-    results = {}
-    for url in urls_to_test:
-        try:
-            response = requests.get(url, timeout=10)
-            results[url] = {
-                'status_code': response.status_code,
-                'headers': dict(response.headers),
-                'content_length': len(response.content),
-                'is_empty': len(response.content) == 0
-            }
-        except Exception as e:
-            results[url] = {'error': str(e)}
-    
-    return results
-
-@app.route('/diagnostic/<video_id>')
-def run_diagnostic(video_id):
-    results = test_youtube_access(video_id)
-    return jsonify(results)
-
-
-
 @app.route('/validate_url', methods=["POST"])
 def validate_url():
     data = request.get_json()
@@ -115,15 +83,6 @@ def download_opt():
     url = request.args.get("url")
     if not url or not is_valid_url(url):
         return redirect(url_for("index"))
-    
-    current_dir = os.getcwd()
-    print(f"Current working directory: {current_dir}")
-    print(f"Files in directory: {os.listdir(current_dir)}")
-
-    cookie_path = os.path.join(current_dir, 'cookies.txt')
-    print(f"Looking for cookies at: {cookie_path}")
-    print(f"Cookies file exists: {os.path.exists(cookie_path)}")
-
 
     # Use options from session instead of fetching again
     options = session.get('options')
