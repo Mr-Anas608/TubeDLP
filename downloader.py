@@ -171,39 +171,68 @@ def filter_info(info):
 
 # A function to extract download information using the extract_info() function in the YoutubeDL class from the yt_dlp library.
 def get_download_options(url):
-    options = {
-        # 'no_warnings': True,
-        'no_warnings': False,
-        'socket_timeout': 120,
-        'cookies': 'cookies.txt',
-        'verbose': True,
-        'verbose': True,  # Add verbose output
-        'ignore_no_formats_error': True,  # Add this
-        'extract_flat': False,  # Changed to False
-        'no_check_certificates': True,
-        'http_headers': {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
-            'Accept-Language': 'en-US,en;q=0.9',
-            'Accept-Encoding': 'gzip, deflate, br',
-            'DNT': '1',
-            'Connection': 'keep-alive',
-            'Upgrade-Insecure-Requests': '1',
-            'Sec-Fetch-Dest': 'document',
-            'Sec-Fetch-Mode': 'navigate',
-            'Sec-Fetch-Site': 'none',
-            'Sec-Fetch-User': '?1'
-        }
-    }
+    # options = {
+    #     # 'no_warnings': True,
+    #     'no_warnings': False,
+    #     'socket_timeout': 120,
+    #     'cookies': 'cookies.txt',
+    #     'verbose': True,
+    #     'verbose': True,  # Add verbose output
+    #     'ignore_no_formats_error': True,  # Add this
+    #     'extract_flat': False,  # Changed to False
+    #     'no_check_certificates': True,
+    #     'http_headers': {
+    #         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
+    #         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+    #         'Accept-Language': 'en-US,en;q=0.9',
+    #         'Accept-Encoding': 'gzip, deflate, br',
+    #         'DNT': '1',
+    #         'Connection': 'keep-alive',
+    #         'Upgrade-Insecure-Requests': '1',
+    #         'Sec-Fetch-Dest': 'document',
+    #         'Sec-Fetch-Mode': 'navigate',
+    #         'Sec-Fetch-Site': 'none',
+    #         'Sec-Fetch-User': '?1'
+    #     }
+    # }
 
-    options.update({
+    # options.update({
+    # 'nocheckcertificate': True,
+    # 'legacy_server_connect': True,
+    # 'extractor_retries': 3,
+    # 'http_chunk_size': 10485760,  # 10M
+    # 'retry_sleep_functions': {'http': lambda n: 5},
+    # })
+    
+    options = {
+    'no_warnings': False,
+    'socket_timeout': 120,
+    'cookies': 'cookies.txt',
+    'verbose': True,
+    'ignore_no_formats_error': True,
+    'format': 'best[protocol^=http]',  # Added: Force HTTP streams
+    'youtube_include_dash_manifest': False,  # Added: Skip DASH manifest
+    'extract_flat': True,  # Changed to True for simpler extraction
+    'no_check_certificates': True,
+    'http_headers': {  # Keep your existing detailed headers
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'DNT': '1',
+        'Connection': 'keep-alive',
+        'Upgrade-Insecure-Requests': '1',
+        'Sec-Fetch-Dest': 'document',
+        'Sec-Fetch-Mode': 'navigate',
+        'Sec-Fetch-Site': 'none',
+        'Sec-Fetch-User': '?1'
+    },
     'nocheckcertificate': True,
     'legacy_server_connect': True,
     'extractor_retries': 3,
-    'http_chunk_size': 10485760,  # 10M
-    'retry_sleep_functions': {'http': lambda n: 5},
-    })
-    
+    'http_chunk_size': 10485760,
+    'retry_sleep_functions': {'http': lambda n: 5}
+    }
     try:
         with yt_dlp.YoutubeDL(options) as ydl:
             ydl.print_debug_header()
