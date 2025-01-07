@@ -172,17 +172,24 @@ def filter_info(info):
 
 # A function to extract download information using the extract_info() function in the YoutubeDL class from the yt_dlp library.
 def get_download_options(url):
+     cookie_path = os.path.join(tempfile.gettempdir(), 'cookies.txt')
+    
     options = {
-    'no_warnings': True,
-    'socket_timeout': 120,
-    'cookies': 'cookies.txt',
-    'http_headers': {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.115 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        'Accept-Language': 'en-us,en;q=0.5',
-        'Sec-Fetch-Mode': 'navigate'
+        'no_warnings': True,
+        'socket_timeout': 120,
+        'cookies': cookie_path,  # Changed this line
+        'cookiesfrombrowser': ('chrome',),  
+        'extract_flat': True,               
+        'ignoreerrors': True,                
+        'nocheckcertificate': True,          
+        'http_headers': {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.115 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'en-us,en;q=0.5',
+            'Sec-Fetch-Mode': 'navigate'
+        }
     }
-    }
+
 
     try:
         with yt_dlp.YoutubeDL(options) as ydl:
