@@ -132,7 +132,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👨‍💻 Author
 
-**Anas**
+**Mr. Anas**
 - GitHub: [@Mr-Anas608](https://github.com/Mr-Anas608)
 
 ## 🙏 Acknowledgments
