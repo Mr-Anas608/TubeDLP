@@ -132,7 +132,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👨‍💻 Author
 
-**Anas**
+**Mr. Anas**
 - GitHub: [@Mr-Anas608](https://github.com/Mr-Anas608)
 
 ## 🙏 Acknowledgments
@@ -145,7 +145,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you have any questions, suggestions, or just want to say hi, feel free to reach out:
 
-- WhatsApp: [Contact via WhatsApp] (Link in website footer)
+- WhatsApp: [Contact via WhatsApp] (https://wa.me/923114764599?text=Hi%2C%20I%20am%20coming%20from%20your%20video%20downloader%20website.%20I%E2%80%99d%20like%20to%20discuss%20something.%20Can%20we%20chat%3F)
 - GitHub Issues: [Create an issue](https://github.com/Mr-Anas608/TubeDLP/issues)
 
 ---
