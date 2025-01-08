@@ -262,7 +262,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 const videoInfo = JSON.parse(other_downloadButton.dataset.info);
-                console.log("Video Info", videoInfo)
                 const { url: video_url, audio_url, title, audio_ext = 'm4a' } = videoInfo;
 
                 DownloadProgress.show();
@@ -283,6 +282,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         DownloadProgress.update(45 + progress * 0.45);
                     })
                 );
+
+                if (!videoBlob || videoBlob.size === 0) {
+                    throw new Error('Video download failed - please try again');
+                }
 
                 // Merge files
                 DownloadProgress.update(90, 'Merging files...');

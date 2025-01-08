@@ -171,23 +171,16 @@ def filter_info(info):
 
 # A function to extract download information using the extract_info() function in the YoutubeDL class from the yt_dlp library.
 def get_download_options(url):
-
     options = {
-        'no_warnings': False,
-        'socket_timeout': 120,
-         'cookies': 'cookies.txt',
-        'http_headers': {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
-            'Accept-Language': 'en-US,en;q=0.9',
-            'DNT': '1',
-            'Connection': 'keep-alive',
-            'Upgrade-Insecure-Requests': '1',
-            'Sec-Fetch-Dest': 'document',
-            'Sec-Fetch-Mode': 'navigate',
-            'Sec-Fetch-Site': 'none',
-            'Sec-Fetch-User': '?1'
-        }
+    'no_warnings': True,
+    'socket_timeout': 120,
+    'cookies': 'cookies.txt',
+    'http_headers': {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.115 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        'Accept-Language': 'en-us,en;q=0.5',
+        'Sec-Fetch-Mode': 'navigate'
+    }
     }
 
     try:
@@ -200,8 +193,6 @@ def get_download_options(url):
     except Exception as e:
         return {"error": f"An unexpected error occurred: {str(e)}"}
 
-
-
 def is_valid_url(url):
     try:
         # Check if the URL is well-formed
@@ -213,8 +204,3 @@ def is_valid_url(url):
         return response.status_code >= 200 and response.status_code < 400
     except (ValueError, requests.RequestException):
         return False
-
-
-# url = "https://youtube.com/shorts/67zDX3uWXFk?si=rJBYFUUxe2W0_dGw"
-# result = get_download_options(url)
-# print(result)
