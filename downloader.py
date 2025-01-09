@@ -170,20 +170,27 @@ def filter_info(info):
 
 
 # A function to extract download information using the extract_info() function in the YoutubeDL class from the yt_dlp library.
-def get_download_options(url):
+ddef get_download_options(url):
     options = {
-    'no_warnings': True,
-    'socket_timeout': 120,
-    'cookiefile': './cookies.txt',  
-    'cookiesfrombrowser': ('chrome',), 
-    'http_headers': {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.115 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        'Accept-Language': 'en-us,en;q=0.5',
-        'Sec-Fetch-Mode': 'navigate'
+        'no_warnings': True,
+        'socket_timeout': 120,
+        'cookies': 'cookies.txt',
+        'username': 'mr.anasfb03@gmail.com',
+        'password': '@Pasword_MrAnas03',  
+        'http_headers': {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'en-us,en;q=0.5',
+            'Sec-Fetch-Mode': 'navigate',
+            'Origin': 'https://www.youtube.com',
+            'Referer': 'https://www.youtube.com/'
+        },
+        'extract_flat': True,
+        'quiet': True,
+        'sleep_interval': 1,
+        'max_sleep_interval': 5,
     }
-    }
-
+    
     try:
         with yt_dlp.YoutubeDL(options) as ydl:
             info = ydl.extract_info(url, download=False)
@@ -193,6 +200,7 @@ def get_download_options(url):
         return {"error": f"The provided URL is not supported: {str(e)}"}
     except Exception as e:
         return {"error": f"An unexpected error occurred: {str(e)}"}
+
 
 def is_valid_url(url):
     try:
