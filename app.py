@@ -127,111 +127,64 @@ def stream_video_response(url, filename):
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
             'Accept': '*/*',
-            'Accept-Encoding': 'identity',
+            # 'Accept-Encoding': 'identity',
             'Range': 'bytes=0-'
         }
         
-        # Try HEAD request first
-        try:
-            head_response = session.head(url, headers=headers, timeout=10)
-            total_size = int(head_response.headers.get('content-length', 0))
-            content_type = head_response.headers.get('Content-Type', 'application/octet-stream')
-        except:
-            # If HEAD request fails or content-length is 0, skip it
-            print("HEAD request failed or content-length is 0, proceeding with direct download")
-            total_size = None
-            content_type = 'application/octet-stream'
+        # First make a HEAD request to get the content length
+        head_response = session.head(url, headers=headers, timeout=10)
+        total_size = int(head_response.headers.get('content-length', 0))
+        content_type = head_response.headers.get('Content-Type', 'application/octet-stream')
+
         
         downloaded_size = 0
-        buffer = []  # To temporarily store initial chunks for small files
         
         def generate():
             nonlocal downloaded_size
-            nonlocal total_size
-            
             with session.get(url, headers=headers, stream=True) as response:
                 if not response.ok:
-                    print(f"Stream error: {response.status_code}")
+                    # print(f"Stream error: {response.status_code}")
                     return
                 
-                # If we didn't get content length from HEAD, try to get it from GET
-                if total_size is None or total_size == 0:
-                    total_size = int(response.headers.get('content-length', 0))
-                
-                # For small files/audio, we'll buffer first few chunks to verify content
-                is_small_file = total_size == 0 or (total_size is not None and total_size < 1024 * 1024)  # 1MB
-                if is_small_file:
-                    chunk_count = 0
-                    
-                    # Buffer up to 5 chunks or 1MB, whichever comes first
-                    for chunk in response.iter_content(chunk_size=8192):
-                        if chunk:
-                            buffer.append(chunk)
-                            downloaded_size += len(chunk)
-                            chunk_count += 1
-                            
-                            if chunk_count >= 5 or downloaded_size >= 1024 * 1024:
-                                break
-                    
-                    # If we got some content, send it all
-                    if downloaded_size > 0:
-                        for chunk in buffer:
-                            yield chunk
-                        # Continue with rest of the file if any
-                        for chunk in response.iter_content(chunk_size=8192):
-                            if chunk:
-                                downloaded_size += len(chunk)
-                                yield chunk
-                    else:
-                        raise Exception("No content received in initial chunks")
-                else:
-                    # For larger files, stream normally
-                    for chunk in response.iter_content(chunk_size=8192):
-                        if chunk:
-                            downloaded_size += len(chunk)
-                            yield chunk
+                # Stream the content in chunks
+                for chunk in response.iter_content(chunk_size=8192):
+                    if chunk:
+                        downloaded_size += len(chunk)
+                        yield chunk
         
-        # Only include Content-Length header if we have a valid size
-        headers = {
-            'Content-Disposition': f'attachment; filename="{filename}"',
-            'Content-Type': content_type,
-            'Accept-Ranges': 'bytes'
-        }
-        if total_size and total_size > 0:
-            headers['Content-Length'] = str(total_size)
-        
-        return Response(
+        response = Response(
             generate(),
-            headers=headers
+            headers={
+                'Content-Disposition': f'attachment; filename="{filename}"',
+                'Content-Type': content_type,
+                'Content-Length': str(total_size),
+                'Accept-Ranges': 'bytes'
+            }
         )
         
+        return response
     except Exception as e:
-        print(f"Error in stream_video_response: {str(e)}")
         return jsonify({'error': str(e)}), 500
-        
+
 @app.route('/download', methods=["POST"])
 def download():
     try:
         data = request.get_json()
-        if not data:
-            return jsonify({"error": "No JSON data provided"}), 400
-            
         url = data.get("url")
-        if not url:
-            return jsonify({"error": "URL is required"}), 400
-            
         extension = data.get("extension")
-        if not extension:
-            return jsonify({"error": "File extension is required"}), 400
-            
         title = data.get("title", "video")
+
         encoded_title = urllib.parse.quote(title)
         filename = f"{encoded_title}.{extension}"
         
+        
+        if not url:
+            return jsonify({"error": "URL is required"}), 400
+            
         return stream_video_response(url, filename)
         
     except Exception as e:
-        print(f"Error in download endpoint: {str(e)}")
+
         return jsonify({"error": str(e)}), 500
     
 
