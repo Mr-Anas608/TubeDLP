@@ -170,7 +170,7 @@ def filter_info(info):
 
 
 # A function to extract download information using the extract_info() function in the YoutubeDL class from the yt_dlp library.
-ddef get_download_options(url):
+def get_download_options(url):
     options = {
         'no_warnings': True,
         'socket_timeout': 120,
