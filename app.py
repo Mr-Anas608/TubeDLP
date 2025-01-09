@@ -133,24 +133,39 @@ def stream_video_response(url, filename):
         
         # First make a HEAD request to get the content length
         head_response = session.head(url, headers=headers, timeout=10)
+        if not head_response.ok:
+            raise Exception(f"HEAD request failed with status code: {head_response.status_code}")
+            
         total_size = int(head_response.headers.get('content-length', 0))
+        if total_size == 0:
+            raise Exception("Content length is 0")
+            
         content_type = head_response.headers.get('Content-Type', 'application/octet-stream')
-
         
         downloaded_size = 0
+        chunk_size = 8192
         
         def generate():
             nonlocal downloaded_size
-            with session.get(url, headers=headers, stream=True) as response:
-                if not response.ok:
-                    # print(f"Stream error: {response.status_code}")
-                    return
+            
+            # Make the actual GET request
+            response = session.get(url, headers=headers, stream=True, timeout=30)
+            if not response.ok:
+                raise Exception(f"GET request failed with status code: {response.status_code}")
                 
+            try:
                 # Stream the content in chunks
-                for chunk in response.iter_content(chunk_size=8192):
-                    if chunk:
+                for chunk in response.iter_content(chunk_size=chunk_size):
+                    if chunk:  # Filter out keep-alive chunks
                         downloaded_size += len(chunk)
                         yield chunk
+                        
+                # Verify complete download
+                if downloaded_size != total_size:
+                    raise Exception(f"Download incomplete. Expected {total_size} bytes but got {downloaded_size}")
+                    
+            finally:
+                response.close()
         
         response = Response(
             generate(),
@@ -163,28 +178,35 @@ def stream_video_response(url, filename):
         )
         
         return response
+        
     except Exception as e:
+        # Log the error for debugging
+        print(f"Error in stream_video_response: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
 @app.route('/download', methods=["POST"])
 def download():
     try:
         data = request.get_json()
+        if not data:
+            return jsonify({"error": "No JSON data provided"}), 400
+            
         url = data.get("url")
-        extension = data.get("extension")
-        title = data.get("title", "video")
-
-        encoded_title = urllib.parse.quote(title)
-        filename = f"{encoded_title}.{extension}"
-        
-        
         if not url:
             return jsonify({"error": "URL is required"}), 400
             
+        extension = data.get("extension")
+        if not extension:
+            return jsonify({"error": "File extension is required"}), 400
+            
+        title = data.get("title", "video")
+        encoded_title = urllib.parse.quote(title)
+        filename = f"{encoded_title}.{extension}"
+        
         return stream_video_response(url, filename)
         
     except Exception as e:
-
+        print(f"Error in download endpoint: {str(e)}")
         return jsonify({"error": str(e)}), 500
     
 
