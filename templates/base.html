@@ -4,27 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Free video downloader for social media platforms. Download videos in high quality from YouTube, Facebook, Instagram, and more!">
-    <meta http-equiv="Cross-Origin-Embedder-Policy" content="unsafe-none">
-    <meta http-equiv="Cross-Origin-Opener-Policy" content="unsafe-none">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/static/images/logo.png">
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;500&display=swap"
+    <!-- Primary Meta Tags -->
+    <title>TubeDLP - Free YouTube Video Downloader | No Ads, Fast & Simple</title>
+    <meta name="title" content="TubeDLP - Free YouTube Video Downloader | No Ads, Fast & Simple">
+    <meta name="description"
+        content="Download YouTube videos in high quality for free. No ads, no complications - just fast, reliable downloads with multiple format options including 4K. Easy 3-step process: Copy, Paste, Download.">
+    <meta name="keywords"
+        content="YouTube downloader, video downloader, free video download, YouTube to MP4, high quality video download, no ads downloader">
+    <meta name="author" content="Mr. Anas">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon-16x16.png">
+    <meta name="theme-color" content="#00FF00">
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=Alfa+Slab+One&family=Poppins:wght@400;600&family=Roboto:wght@400;500&display=swap"
         rel="stylesheet">
 
+    <!-- Security Headers -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta http-equiv="Cross-Origin-Embedder-Policy" content="unsafe-none">
+    <meta http-equiv="Cross-Origin-Opener-Policy" content="unsafe-none">
 
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="/static/style/base.css">
+    <link rel="stylesheet" href="/static/style/brand.css">
     {% block style %}
     {% endblock style %}
-
-    <title>{% block title %}TubeDLP - Free Video Downloader{% endblock %}</title>
 </head>
 
 <body>
     <nav class="navbar">
-        <a href="/" class="logo"><img src="/static/images/logo.png" alt="TubeDLP Logo"></a>
+        <a href="/" class="logo"><img src="/static/images/" alt="TubeDLP Logo"></a>
         <button class="menu-toggle" aria-label="Toggle menu">☰</button>
         <ul class="navbar-menu">
             <li><a href="/">Home</a></li>
@@ -82,6 +99,34 @@
         menuToggle.addEventListener('click', () => {
             menu.classList.toggle('active');
         });
+    </script>
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "TubeDLP",
+      "url": "https://tubedlp.onrender.com/",
+      "applicationCategory": "MultimediaApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Free YouTube video downloader with no ads. Download videos in high quality including 4K. Fast, simple, and reliable.",
+      "creator": {
+        "@type": "Person",
+        "name": "Mr. Anas"
+      },
+      "featureList": [
+        "High quality video downloads",
+        "Multiple format options",
+        "No advertisements",
+        "Fast processing",
+        "Browser-based solution"
+      ]
+    }
     </script>
 </body>
 

@@ -1,5 +1,5 @@
 :root {
-    --primary: #07E44D;
+    --primary: #00FF00 ;
     --dark: #131313;
     --darker: #131313;
     --darkest: #070707;
@@ -95,7 +95,7 @@ body {
 .contact-button {
     font-family: inherit;
     font-size: clamp(13px, 1.5vw, 14px);
-    background: linear-gradient(135deg, #5eff91 0%, #07E44D 100%);
+    background: linear-gradient(135deg, #5eff91 0%, #00FF00  100%);
     color: white;
     padding: clamp(0.5em, 1.5vw, 0.6em) clamp(0.8em, 2vw, 1em);
     display: flex;

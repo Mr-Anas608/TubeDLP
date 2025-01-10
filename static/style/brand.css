@@ -1,0 +1,67 @@
+/* Brand Colors */
+:root {
+    --primary: #00FF00;
+    --dark: #131313;
+    --darker: #131313;
+    --darkest: #070707;
+    --white: #fff;
+    --transition: all 0.3s ease;
+}
+
+/* Logo Styles */
+.logo {
+    display: inline-block;
+    transition: var(--transition);
+}
+
+.logo img {
+    height: 55px;
+    width: auto;
+    transition: var(--transition);
+}
+
+.logo:hover img {
+    transform: scale(1.05);
+}
+
+/* Logo text styles for fallback/accessibility */
+.logo-text {
+    font-family: 'Berkshire Swash', cursive;
+    color: var(--primary);
+    font-size: 2rem;
+    text-decoration: none;
+}
+
+.logo-subtext {
+    font-family: 'Alfa Slab One', cursive;
+    color: var(--white);
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* Ensure logo is visible on all backgrounds */
+.dark-bg .logo img {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Logo container for proper spacing */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .logo img {
+        height: 45px;
+    }
+    
+    .logo-text {
+        font-size: 1.75rem;
+    }
+    
+    .logo-subtext {
+        font-size: 0.8rem;
+    }
+}

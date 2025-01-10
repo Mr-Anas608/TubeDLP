@@ -6,10 +6,15 @@ import json
 import os, urllib.parse
 from downloader import is_valid_url, get_download_options
 from flask_cors import CORS
+from functools import wraps
+from datetime import datetime, timedelta
+import time
+import random  # Added for random sleep in rate limiter
 
 app = Flask(__name__)
 CORS(app)
 
+# Session configuration
 app.config.update({
     'SESSION_TYPE': 'filesystem',
     'SECRET_KEY': 'Mr_anas123',
@@ -40,14 +45,41 @@ def add_header(response):
     response.headers['Cross-Origin-Resource-Policy'] = 'cross-origin'
     return response
 
+# In-memory rate limiter setup
+request_history = {}
+RATE_LIMIT = 10  # Max requests per time window
+TIME_WINDOW = 300  # Time window in seconds (5 minutes)
 
+def rate_limit(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        ip = request.remote_addr
+        now = datetime.now()
+        
+        # Clean up old entries
+        request_history[ip] = [t for t in request_history.get(ip, []) if now - t < timedelta(seconds=TIME_WINDOW)]
+        
+        if len(request_history.get(ip, [])) >= RATE_LIMIT:
+            return jsonify({
+                "error": "Rate limit exceeded. Please try again in a few minutes.",
+                "retry_after": TIME_WINDOW
+            }), 429
+        
+        # Add current request time
+        request_history.setdefault(ip, []).append(now)
+        
+        # Optional: Add random delay to prevent scraping automation
+        time.sleep(random.uniform(1, 3))
+        
+        return f(*args, **kwargs)
+    return decorated_function
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-
 @app.route('/validate_url', methods=["POST"])
+@rate_limit  # Apply rate limiting to this route
 def validate_url():
     data = request.get_json()
     url = data.get("url")
@@ -58,33 +90,29 @@ def validate_url():
     if not valid:
         return jsonify({"valid": False, "error": "Invalid URL."})
         
-    # Get options here and store in session
     try:
         options = get_download_options(url)
-        options = json.loads(json.dumps(options, default=str))  # Ensure serializable
+        options = json.loads(json.dumps(options, default=str))
         
-        # Check if formats are available
         has_video = options.get('available_v_resolutions') and len(options['available_v_resolutions']) > 0
         has_audio = options.get('available_a_extensions') and len(options['available_a_extensions']) > 0
         
         if not (has_video or has_audio):
-            return jsonify({"valid": False, "error": "URL not supported!, Please try again or use different URL."})
+            return jsonify({"valid": False, "error": "URL not supported! Please try again or use a different URL."})
             
-        # Store in session if valid
         session['options'] = options
         return jsonify({"valid": True, "error": None})
         
     except Exception as e:
-        return jsonify({"valid": False, "error": "URL not supported!, Please try again or use different URL."})
-    
+        return jsonify({"valid": False, "error": "URL not supported! Please try again or use a different URL."})
 
 @app.route('/download-options', methods=["GET"])
+@rate_limit  # Apply rate limiting here as well
 def download_opt():
     url = request.args.get("url")
     if not url or not is_valid_url(url):
         return redirect(url_for("index"))
 
-    # Use options from session instead of fetching again
     options = session.get('options')
     if not options:
         return redirect(url_for("index"))
@@ -99,7 +127,7 @@ def stream_video_response(url, filename):
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
             'Accept': '*/*',
-            'Accept-Encoding': 'identity',
+            # 'Accept-Encoding': 'identity',
             'Range': 'bytes=0-'
         }
         
