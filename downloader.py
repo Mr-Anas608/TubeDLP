@@ -209,7 +209,7 @@ def get_download_options(url):
                 
                 # Try with authentication if cookies fail
                 options['username'] = 'mr.anasfb03@gmail.com'
-                options['password'] = '@Pasword_MrAnas03'
+                options['password'] = ''
                 
                 try:
                     info = ydl.extract_info(url, download=False)
